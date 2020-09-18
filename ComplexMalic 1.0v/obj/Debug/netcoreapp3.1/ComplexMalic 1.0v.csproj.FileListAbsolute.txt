@@ -1,0 +1,13 @@
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\bin\Debug\netcoreapp3.1\ComplexMalic 1.0v.exe
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\bin\Debug\netcoreapp3.1\ComplexMalic 1.0v.deps.json
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\bin\Debug\netcoreapp3.1\ComplexMalic 1.0v.runtimeconfig.json
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\bin\Debug\netcoreapp3.1\ComplexMalic 1.0v.runtimeconfig.dev.json
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\bin\Debug\netcoreapp3.1\ComplexMalic 1.0v.dll
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\bin\Debug\netcoreapp3.1\ComplexMalic 1.0v.pdb
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\obj\Debug\netcoreapp3.1\ComplexMalic 1.0v.csprojAssemblyReference.cache
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\obj\Debug\netcoreapp3.1\ComplexMalic 1.0v.AssemblyInfoInputs.cache
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\obj\Debug\netcoreapp3.1\ComplexMalic 1.0v.AssemblyInfo.cs
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\obj\Debug\netcoreapp3.1\ComplexMalic 1.0v.csproj.CoreCompileInputs.cache
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\obj\Debug\netcoreapp3.1\ComplexMalic 1.0v.dll
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\obj\Debug\netcoreapp3.1\ComplexMalic 1.0v.pdb
+C:\Users\adari\repos\TextGame\TextGame\ComplexMalic 1.0v\obj\Debug\netcoreapp3.1\ComplexMalic 1.0v.genruntimeconfig.cache

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ComplexMalic_1._0v
-{
+{[Serializable]
     public class Player
     {
         Random rand = new Random();
         public string Name;
+        public int saveId;
         public int Health = 15;
         public int Damage = 1;
         public int Zenii = 20000;

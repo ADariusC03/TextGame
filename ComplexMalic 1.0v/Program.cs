@@ -1,4 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ComplexMalic_1._0v
 {
@@ -8,8 +14,15 @@ namespace ComplexMalic_1._0v
         public static bool mainLoop = true;
         static void Main(string[] args)
         {
-            Start();
-            Encounter.FirstEncounter();
+            if (!Directory.Exists("saves"))
+            {
+                Directory.CreateDirectory("saves");
+            }
+
+            currentPlayer = Load(out bool newP);
+            if(newP)
+                Encounter.FirstEncounter();
+
             while (mainLoop)
             {
                 Encounter.RandomEncounter();
@@ -18,22 +31,25 @@ namespace ComplexMalic_1._0v
         }
 
 
-        static void Start()
+        static Player NewStart(int i)
         {
+            Console.Clear();
+            Player p = new Player();
             Print("Complex MALICE!", 60);
             Console.WriteLine();
             Console.WriteLine("Name:");
-            currentPlayer.Name = Console.ReadLine();
+            p.Name = Console.ReadLine();
+            p.saveId = i;
             Console.Clear();
             Print("Welcome! MALICE Awaits The Weak Soul!", 30);
             Console.WriteLine();
             Print("**Thundering and Stormy Night**  You awake from a lucid dream with your long, lost love." +
-                "Only to find yourself in a cold, dark eerie room.", 40);
+                "Only to find yourself in a cold, dark eerie room.", 50);
             Print("You decided to get up, but feel light-headed, having trouble remembering how you got there.", 40);
-            if (currentPlayer.Name == "")
+            if (p.Name == "")
                 Console.WriteLine("You barley remember your own name......");
             else
-                Console.WriteLine("Funny, You do remember your name is ." + currentPlayer.Name);
+                Console.WriteLine("Funny, You do remember your name is ." + p.Name);
             Console.ReadKey();
             Console.Clear();
             Print("**Thunder RUMBLES and Lighting EMMITS The Dark Room From The Tall Window On The Wall**", 40);
@@ -53,8 +69,14 @@ namespace ComplexMalic_1._0v
             Print("You slowly creep around, analizing the room until you see across the hall a man in bloody clothes" +
                 " occupied cutting, what could be human flesh........?!!?!?!?", 30);
             Console.WriteLine();
+            return p;
 
 
+        }
+        public static void Quit()
+        {
+            Save();
+            Environment.Exit(0);
         }
         public static void Print(string text, int speed)
         {
@@ -65,6 +87,102 @@ namespace ComplexMalic_1._0v
             }
             Console.WriteLine();
         }
+
+        public static void Save()
+        {
+            BinaryFormatter binFore = new BinaryFormatter();
+            string path = "saves/" + currentPlayer.saveId.ToString() + ".level";
+            FileStream file = File.Open(path, FileMode.OpenOrCreate);
+            file.Close();
+        }
+
+        public static Player Load(out bool newP)
+        {
+            newP = false;
+            Console.Clear();
+            string[] paths = Directory.GetFiles("saves");
+            List<Player> players = new List<Player>();
+            int idCount = 0;
+
+            BinaryFormatter binFore = new BinaryFormatter();
+            foreach (string p in paths)
+            {
+                FileStream file = File.Open(p, FileMode.Open);
+                Player player = (Player)binFore.Deserialize(file);
+                file.Close();
+                players.Add(player);
+            }
+
+            idCount = players.Count;
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Choose Your Player........If You Have The Will To Fight!!!");
+
+
+                foreach (Player p in players)
+                {
+                    Console.WriteLine(p.saveId + ": " + p.Name);
+
+                }
+                Console.WriteLine("Please Input Player Name or ID  (id:# or playername). Additionally, 'Create' will start a new save! ");
+                string[] data = Console.ReadLine().Split(':');
+                try
+                {
+                   if(data[0] == "id")
+                    {
+                        if(int.TryParse(data[1],out int saveId))
+                        {
+                            foreach (Player player in players)
+                            {
+                                if(player.saveId == saveId)
+                                {
+                                    return player;
+                                }
+                            }
+                            Console.WriteLine("There Isn't No Player With That ID!!!!");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your ID Needs To Be A Number! ...... Press Any Key To Continue!");
+                            Console.ReadKey();
+                        }
+                    }
+                   else if(data[0] == "Create")
+                    {
+                       Player newPlayer =  NewStart(idCount);
+                        newP = true;
+                        return newPlayer;
+                       
+                    }
+                    else
+                    {
+                        foreach (Player player in players)
+                        {
+                            if(player.Name == data[0])
+                            {
+                                return player;
+                            }
+                        }
+                        Console.WriteLine("There Is NO Player With That Name .....");
+                        Console.ReadKey();
+                    }
+                }
+                
+                catch (IndexOutOfRangeException)
+                {
+
+                    Console.WriteLine("Your ID Needs To Be A Number! ...... Press Any Key To Continue!");
+                    Console.ReadKey();
+                }
+
+
+             }
+
+        }
     }
+
 }
 

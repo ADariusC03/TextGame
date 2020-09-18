@@ -34,6 +34,7 @@ namespace ComplexMalic_1._0v
                 Console.WriteLine("| (L)evel Mod:   $" + levelP);
                 Console.WriteLine("============================");
                 Console.WriteLine("(E)xit");
+                Console.WriteLine("(Q)uit");
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine(p.Name + "   Stats          ");
@@ -62,6 +63,10 @@ namespace ComplexMalic_1._0v
                 else if (input == "l" || input == "Level Mod")
                 {
                     TryBuy("level", levelP, p);
+                }
+                else if(input == "q" || input == "quit")
+                {
+                    Program.Quit();
                 }
                 else if (input == "e" || input == "exit")
                     break;

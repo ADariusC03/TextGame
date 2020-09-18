@@ -200,7 +200,7 @@ namespace ComplexMalic_1._0v
                 case 3:
                     return " Scarlett";
             }
-            return "Zombie Hunter";
+            return "Infected-Human";
 
         }
     }
