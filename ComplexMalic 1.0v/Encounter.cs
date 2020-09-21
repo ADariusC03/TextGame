@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ComplexMalic_1._0v
@@ -29,8 +30,11 @@ namespace ComplexMalic_1._0v
         }
         public static void TyrantEncounter()
         {
+            int p = Program.currentPlayer.pName;
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("**Rumbling and Destruction Is Heard Throughout The Building**");
+            Console.ResetColor();
             Console.WriteLine();
             Console.WriteLine("Dead bodies and splatter of blood is everywhere as you keep walking hoping whatever is destorying stays in that area until you can leave.");
             Console.WriteLine();
@@ -41,12 +45,107 @@ namespace ComplexMalic_1._0v
             Console.WriteLine("You walk towards a receptionist desk to see if any information is displayed on where you are located.");
             Console.WriteLine("Until........................**RUMBLING AND DESTRUCTION SOUNDS COMMING CLOSER**");
             Console.WriteLine();
-            Console.WriteLine("**Busting Through The Walls** a very tall figure appears in front of you, wearing bloody stain boots, long black ripped pants and no shirt," +
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("**Busting Through The Walls** a very tall figure, 6ft 7inches, appears in front of you, wearing bloody stain boots, long black ripped pants and no shirt," +
                 "but has grey skin with many scars. Notibly it has scar in the shape of a BIG M over it's heart");
+            Console.ResetColor();
+            Console.WriteLine("HOLY SHIT!, you gotta kidding me?!? I know you been drinking your milk daily,says" + p + ".");
+            Console.WriteLine("You ARE not ALLOWED here, say Mr.Mal.... Prepare for trouble...");
+            Console.WriteLine("Or Make It Double?? I know you not qouting team Rockect, says" + p + ". Mr.Mal looks at you displeased and confused  " +
+                "clenching his fist ready to strike. You say Well I guess I'm not a comedian then lets get this over with bub.");
             Console.ReadKey();
-            Combat(false, "Mr. Mal", 15, 3);
+            Combat(false, "Mr. Mal", 30, 6);
 
         }
+
+          public static void PuzzleEncounter()
+          { int p = Program.currentPlayer.pName;
+            Console.Clear();
+            Console.WriteLine("**Mr.Mal is defeated leaving an open path to explore**");
+            Console.WriteLine("**Grabbing an flashlight from the desk** You decide to go through the open wall to explore." +
+                "Little is known about this area as you slowly walk in the dark with your flashlight.");
+            Console.WriteLine();
+            Console.WriteLine("Upon walking the quiet halls, you bump into something that seems to be hanging from the cieling.");
+            Console.WriteLine();
+            Console.WriteLine("You shine the flashlight up and see a nun hanging from a noose,with his eyes gouged out and a note on her chest" +
+                "saying : Welcome AT Your Own Dismise!");
+            Console.WriteLine();
+            Console.WriteLine("Geez thats a nice way to welcome someone. I need to get out of this hell-hole says" + p + " Continuing to walk" +
+                "You see a trial of blood in your path, hoping it'll lead you into an exit.");
+            Console.WriteLine();
+            Console.WriteLine("You come upon a two dead cops laying against bot sides of a wall near a door with there intestines ripped out and there eyes gouged out.");
+            Console.WriteLine();
+            Console.WriteLine("You inspect one of the dead bodies and find a note pertaining to the door");
+            Console.WriteLine();
+
+            List<int> list = new List<int>();
+            Random ran = new Random();
+            int swapOne, swapTwo;
+
+            for (int i = 0; i < 7; i++)
+            {
+                list.Add(ran.Next(0, 100));
+
+            }
+
+            Console.WriteLine("You read the note that says to swap the numbers on the door in a list until they're in ascending numerical order.");
+
+            while (true)
+            {
+                swapOne = -1;
+                swapTwo = -1;
+
+                WriteOutList(list);
+
+                while (list.Contains(swapOne) == false)
+                {
+                    Console.WriteLine("What first number would you like to swap?");
+                    swapOne = Convert.ToInt32(Console.ReadLine());
+                }
+
+                while (list.Contains(swapTwo) == false)
+                {
+                    Console.WriteLine("What second number would you like to swap?");
+                    swapTwo = Convert.ToInt32(Console.ReadLine());
+
+                }
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (list[i] == swapOne)
+                    {
+                        list[i] = swapTwo;
+                    }
+                    else if(list[i] == swapTwo)
+                    { 
+                        list[i] = swapOne; 
+                    }
+
+                }
+
+                List<int> sortedList = new List<int>(list);
+                sortedList.Sort();
+
+                if (list.SequenceEqual(sortedList) == true)
+                {
+                    WriteOutList(list);
+                    Console.WriteLine("Door is now open.");
+                    break;
+                }
+            }
+
+            Console.ReadLine();
+
+            static void WriteOutList(List<int> list)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    Console.Write(list[i] + ", ");
+                }
+                Console.WriteLine();
+            }
+          }
+
 
 
 
@@ -60,7 +159,7 @@ namespace ComplexMalic_1._0v
         //Encounter Tools
         public static void RandomEncounter()
         {
-            switch (rand.Next(0, 2))
+            switch (rand.Next(0, 3))
             {
                 case 0:
                     BasicFightEncounter();
@@ -68,6 +167,9 @@ namespace ComplexMalic_1._0v
                 case 1:
                     TyrantEncounter();
                     break;
+                case 2:
+                    PuzzleEncounter();
+                break;
             }
         }
         public static void Combat(bool random, string name, int health, int power)
@@ -77,7 +179,7 @@ namespace ComplexMalic_1._0v
             int p = 0;
             int h = 0;
             if (random)
-            {
+            {    
                 n = GetName();
                 p = Program.currentPlayer.GetPower();
                 h = Program.currentPlayer.GetHealth();
@@ -107,7 +209,7 @@ namespace ComplexMalic_1._0v
                     int damage = p - Program.currentPlayer.armorValue;
                     if (damage < 0)
                         damage = 0;
-                    int attack = rand.Next(0, Program.currentPlayer.weaponValue) + rand.Next(1, 4);
+                    int attack = rand.Next(0, Program.currentPlayer.weaponValue) + rand.Next(1, 4) + ((Program.currentPlayer.currentClass == Player.PlayerCLass.StreetFigher)?2:0);
 
                     Console.WriteLine("You lose " + damage + " health and deal " + attack + " damage.");
                     Program.currentPlayer.Health -= damage;
@@ -129,14 +231,15 @@ namespace ComplexMalic_1._0v
                 else if (input.ToLower() == "r" || input.ToLower() == "run")
                 {
                     //Run
-                    if (rand.Next(0, 2) == 0)
+                    if (Program.currentPlayer.currentClass != Player.PlayerCLass.RookieCop && rand.Next(0, 2) == 0)
                     {
                         Console.WriteLine("As you run away from the " + n + ", its strike catches your back ankle making you sprawl on the ground");
                         int damage = Program.currentPlayer.armorValue;
                         if (damage < 0)
                             damage = 0;
                         Console.WriteLine("You lose " + damage + " health and is UNABLE to ESCAPE!!!");
-                        Console.ReadKey();
+                        Program.currentPlayer.Health -= damage;
+                        
                     }
                     else
                     {
@@ -163,13 +266,14 @@ namespace ComplexMalic_1._0v
                         int foodV = 5;
                         Console.WriteLine("You gain " + foodV + " health");
                         Program.currentPlayer.Health += foodV;
+                        Program.currentPlayer.Food--;
                         Console.WriteLine("As you were occupied " + n + " went ahead and hit you.");
                         int damage = (p / 2) - Program.currentPlayer.armorValue;
                         if (damage < 0)
                             damage = 0;
                         Console.WriteLine("You lose " + damage + " health.");
                     }
-                    Console.ReadKey();
+                    
                 }
                 if (Program.currentPlayer.Health <= 0)
                 {
@@ -181,11 +285,18 @@ namespace ComplexMalic_1._0v
                 }
                 Console.ReadKey();
 
+
             }
             int z = Program.currentPlayer.GetDollars();
-            Console.WriteLine("As you stand covered in blood victories over " + n + ", its body dissovles into " + z + " dollars.");
+            int x = Program.currentPlayer.GetXP();
+            Console.WriteLine("As you stand covered in blood victories over " + n + ", its body dissovles into " + z + " dollars.You have gain "+ x +" XP!");
             Program.currentPlayer.Zenii += z;
-            Console.ReadKey();
+            Program.currentPlayer.xp += x;
+
+            if (Program.currentPlayer.CanLevelUp())
+                Program.currentPlayer.levelUP();
+
+           Console.ReadKey();
         }
         public static string GetName()
         {
@@ -203,6 +314,8 @@ namespace ComplexMalic_1._0v
             return "Infected-Human";
 
         }
+        
+        
     }
 }
 

@@ -47,6 +47,14 @@ namespace ComplexMalic_1._0v
                 Console.WriteLine("| Level DIfficulty: " + p.mods);
                 Console.WriteLine("============================");
 
+                Console.WriteLine("XP:");
+                Console.Write("[");
+                Program.ProgressBar("+", " ", ((decimal)p.xp / (decimal)p.GetLevelUpValue()), 25);
+                Console.Write("]");
+
+                Console.WriteLine("Level: " + p.level);
+                Console.WriteLine("==================================================");
+
                 string input = Console.ReadLine().ToLower();
                 if (input == "f" || input == "Food")
                 {
